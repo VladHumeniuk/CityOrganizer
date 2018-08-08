@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies.gradle'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "humeniuk.cityorganizer"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "API_KEY", "\"f8c8721eda54aa2a869b8bec461715b3\""
+        buildConfigField "String", "API", "\"api.openweathermap.org\""
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    implementation supportAppcompat + supportAppcompatVer
+    implementation supportDesign + supportDesignVer
+    implementation recycleview + recycleviewVer
+    implementation constraintLayout + constraintLayoutVer
+
+    //Room
+    implementation roomRuntime + roomRuntimeVer
+    annotationProcessor roomCompiler + roomCompilerVer
+
+    //Dagger
+    implementation dagger + daggerVer
+    annotationProcessor daggerCompiler + daggerCompilerVer
+    annotationProcessor daggerAndroidProcessor + daggerAndroidProcessorVer
+    implementation daggerSupport + daggerSupportVer
+    kapt daggerAndroidProcessor + daggerAndroidProcessorVer
+    kapt daggerCompiler + daggerCompilerVer
+
+    //ButterKnife
+    implementation butterknife + butterknifeVer
+    annotationProcessor butterknifeCompiler + butterknifeCompilerVer
+
+    //Rx
+    implementation rxandroid + rxandroidVer
+    implementation rxjava + rxjavaVer
+
+    //Retrofit
+    implementation retrofit + retrofitVer
+    implementation gsonConverter + gsonConverterVer
+    implementation retrofitRxAdapter + retrofitRxAdapterVer
+    implementation okHttp + okHttpVer
+    implementation loggingInterceptor + loggingInterceptorVer
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
